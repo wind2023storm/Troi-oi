@@ -1,10 +1,36 @@
 import { IconChevronDown } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+
+import { supabase } from "@/utils/SupabaseClient";
 
 export default function Role() {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("Select Role");
+  const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    getCharacterList();
+  }, []);
+
+  const getCharacterList = async () => {
+    try {
+      setLoading(true);
+      const { data: items, error, status } = await supabase.from('chatgpt_prompt').select(`name`);
+      if (error && status !== 406) {
+        throw error;
+      }
+      
+      if (items) {
+        setCharacters(items.map(item => item.name));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Dropdown Button Ref
   const btnRef = useRef(null);
@@ -16,14 +42,14 @@ export default function Role() {
     }
   };
 
-  const items = [
-    "Life Coach",
-    "English Tutor",
-    "Travel Guide",
-    "Job Interviewer",
-    "English Translator",
-    "English Pronunciation Helper",
-  ];
+  // const items = [
+  //   "Life Coach",
+  //   "English Tutor",
+  //   "Travel Guide",
+  //   "Job Interviewer",
+  //   "English Translator",
+  //   "English Pronunciation Helper",
+  // ];
 
   // handle select role
   const handleSelect = (v) => {
@@ -80,7 +106,7 @@ export default function Role() {
           />
         </div>
         <AnimatePresence>
-          {isOpen && (
+          {isOpen && !loading && (
             <motion.div
               variants={dropdownVariants}
               initial="initial"
@@ -89,7 +115,7 @@ export default function Role() {
               className={`absolute top-full mt-3 left-0 z-10 bg-slate-800 rounded-lg border border-zinc-500 w-full`}
             >
               <ul className="text-gray-500 text-start">
-                {items.map((item, index) => (
+                {characters.map((item, index) => (
                   <li
                     onClick={() => handleSelect(item)}
                     key={index}
