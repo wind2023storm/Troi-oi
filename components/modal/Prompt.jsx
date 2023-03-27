@@ -28,7 +28,7 @@ export default function Prompt() {
       setLoading(false);
     }
   };
-  console.log(prompts, '=========')
+  console.log(prompts, '====')
 
   // List of items
   const items = [
