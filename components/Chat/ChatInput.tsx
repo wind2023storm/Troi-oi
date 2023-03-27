@@ -8,6 +8,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useCallback
 } from "react";
 import Head from "./Head";
 
@@ -19,6 +20,8 @@ interface Props {
   loading: boolean;
   onSelect: (model: OpenAIModel) => void;
 }
+
+const maxLength: number = 12000;
 
 export const ChatInput: FC<Props> = ({
   onSend,
@@ -37,7 +40,6 @@ export const ChatInput: FC<Props> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    const maxLength = 12000;
 
     if (value.length > maxLength) {
       setAlert(`Message limit is ${maxLength} characters`);
@@ -48,6 +50,16 @@ export const ChatInput: FC<Props> = ({
 
     setContent(value);
   };
+
+  const handleCharacterChange = useCallback((promptContent: string) => {
+    if (promptContent?.length > maxLength) {
+      setAlert(`Message limit is ${maxLength} characters`);
+      return;
+    } else {
+      setAlert("");
+    }
+    setContent(promptContent);
+  }, [maxLength])
 
   const handleSend = () => {
     if (!content) {
@@ -120,6 +132,7 @@ export const ChatInput: FC<Props> = ({
           model={model}
           onSelect={onSelect}
           onNewConversation={onNewConversation}
+          onNewCharacter={handleCharacterChange}
         />
         <div className="stretch mx-2  flex flex-row gap-3  md:mx-4 last:my-6 lg:mx-auto lg:max-w-xl xl:max-w-3xl">
           <div className="flex flex-col w-full py-2 flex-grow  md:pl-4 relative bg-slate-1100 shadow-blue-900/5 ring-2 ring-blue-900 rounded-[32px]">
