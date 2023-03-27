@@ -1,7 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { supabase } from "@/utils/SupabaseClient";
 
 export default function Prompt() {
   const [selected, setSelected] = useState("");
+  const [prompts, setPrompts] = useState([]);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    getCharacterList();
+  }, []);
+
+  const getCharacterList = async () => {
+    try {
+      setLoading(true);
+      const { data: items, error, status } = await supabase.from('chatgpt_prompt').select(`prompt`);
+      if (error && status !== 406) {
+        throw error;
+      }
+      
+      if (items) {
+        setPrompts(items.map(item => item.prompt));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log(prompts, '=========')
 
   // List of items
   const items = [
