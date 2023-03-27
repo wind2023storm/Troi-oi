@@ -4,11 +4,12 @@ import { useRef, useState, useEffect } from "react";
 
 import { supabase } from "@/utils/SupabaseClient";
 
-export default function Role() {
+export default function Role({ onClose, onCharacterClick }) {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("Select Role");
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(false)
+  const [prompt, setPrompt] = useState("");
 
   useEffect(() => {
     getCharacterList();
@@ -17,13 +18,13 @@ export default function Role() {
   const getCharacterList = async () => {
     try {
       setLoading(true);
-      const { data: items, error, status } = await supabase.from('chatgpt_prompt').select(`name`);
+      const { data: items, error, status } = await supabase.from('chatgpt_prompt').select(`*`);
       if (error && status !== 406) {
         throw error;
       }
       
       if (items) {
-        setCharacters(items.map(item => item.name));
+        setCharacters(items);
       }
     } catch (error) {
       console.log(error);
@@ -52,8 +53,9 @@ export default function Role() {
   // ];
 
   // handle select role
-  const handleSelect = (v) => {
-    setValue(v);
+  const handleSelect = (item) => {
+    setValue(item.name);
+    setPrompt(item.prompt);
     setIsOpen(false);
   };
 
@@ -121,7 +123,7 @@ export default function Role() {
                     key={index}
                     className="cursor-pointer py-2.5 px-2 text-zinc-300 text-sm hover:bg-slate-900 hover:bg-opacity-40"
                   >
-                    {item}
+                    {item.name}
                   </li>
                 ))}
               </ul>
@@ -139,6 +141,10 @@ export default function Role() {
         <button
           type="button"
           className="text-white bg-green-500 hover:bg-green-600 font-medium rounded-full text-sm px-10 py-2.5 text-center"
+          onClick={() => {
+            onCharacterClick(prompt);
+            onClose();
+          }}
         >
           Save
         </button>
