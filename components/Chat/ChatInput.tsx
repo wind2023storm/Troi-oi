@@ -11,6 +11,9 @@ import {
   useCallback
 } from "react";
 import Head from "./Head";
+import { ChatPromptIcon } from "./ChatPromptIcon";
+import PromptPopup from "../modal/PromptPopup";
+import { supabase } from "@/pages/api/supabaseClient";
 
 interface Props {
   onSend: (message: Message) => void;
@@ -25,19 +28,60 @@ const maxLength: number = 12000;
 
 export const ChatInput: FC<Props> = ({
   onSend,
-
   model,
   stopConversationRef,
   onNewConversation,
   onSelect,
   loading,
 }) => {
+  useEffect(() => {
+    async function fetchPopupData() {
+      const { data: chatGptLangs } = await supabase.from('chatgpt_lang').select();
+      const { data: chatGptTones } = await supabase.from('chatgpt_tone').select();
+      const { data: chatGptwriting } = await supabase.from('chatgpt_writing_style').select();
+      const { data: chatGptformat } = await supabase.from('chatgpt_format').select();
+      if (chatGptTones?.length) {
+        if (toneData?.length) {
+          setToneData([...toneData, ...chatGptTones]);
+        } else setToneData([...chatGptTones]);
+      }
+      if (chatGptwriting?.length) {
+        if (writingData?.length) {
+          setWritingData([...writingData, ...chatGptwriting]);
+        } else setWritingData([...chatGptwriting]);
+      }
+      if (chatGptformat?.length) {
+        if (formatData?.length) {
+          setFormatData([...formatData, ...chatGptformat]);
+        } else setFormatData([...chatGptformat]);
+      }
+      setOutputData(chatGptLangs);
+    }
+    fetchPopupData()
+  }, []);
+  const [outputData, setOutputData] = useState<any[] | null>([]);
+  const [toneData, setToneData] = useState<any[] | null>([{
+    name: "default"
+  }]);
+  const [writingData, setWritingData] = useState<any[] | null>([{
+    name: "default"
+  }]);
+  const [formatData, setFormatData] = useState<any[] | null>([{
+    name: "default"
+  }]);
   const [content, setContent] = useState<string>();
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [alert, setAlert] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
+  const [popupShow, setPopupShow] = useState<Boolean>(false);
+  const [output, setOutput] = useState<any>("");
+  const [tone, setTone] = useState<any>("");
+  const [writing, setWriting] = useState<any>("");
+  const [format, setFormat] = useState<any>("");
+  const handlePopupShow = () => {
+    setPopupShow(!popupShow);
+  }
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
@@ -70,7 +114,10 @@ export const ChatInput: FC<Props> = ({
       return;
     }
 
-    onSend({ role: "user", content });
+    if ((tone && tone.toLowerCase()!=="default") || (output && output.toLowerCase()!=="default") || (writing && writing.toLowerCase()!=="default") || (format && format.toLowerCase()!=="default")) {
+      onSend({ role: "user", content: content + `\n Please respond in ${output ? output : "English"}${tone ? ", " + tone + " tone" : ""}${writing ? ", " + writing + " style." : "."}${format ? " Answer in " + format + " detail." : ""}` })
+    } else onSend({ role: "user", content });
+    
     setContent("");
 
     if (window.innerWidth < 640 && textareaRef && textareaRef.current) {
@@ -134,7 +181,24 @@ export const ChatInput: FC<Props> = ({
           onNewConversation={onNewConversation}
           onNewCharacter={handleCharacterChange}
         />
-        <div className="stretch mx-2  flex flex-row gap-3  md:mx-4 last:my-6 lg:mx-auto lg:max-w-xl xl:max-w-3xl">
+        {popupShow && <PromptPopup
+          outputData={outputData}
+          toneData={toneData}
+          writingData={writingData}
+          formatData={formatData}
+          setPopupShow={handlePopupShow}
+          output={output}
+          tone={tone}
+          writing={writing}
+          format={format}
+          setTone={setTone}
+          setOutput={setOutput}
+          setWriting={setWriting}
+          setFormat={setFormat} />}
+        <div className="stretch mx-2  flex flex-row gap-2 md:mx-4 last:mb-6 last:mt-3 lg:mx-auto lg:max-w-xl xl:max-w-3xl items-center">
+          <div className={popupShow ? "cursor-pointer shrink-0 transition-colors p-1.5 rounded-lg relative bg-gray-500 text-white text-gray-500 dark:text-zinc-900" : "cursor-pointer shrink-0 transition-colors  p-1.5 rounded-lg relative  text-gray-500 dark:text-zinc-500 hover:text-gray-900 dark:text-white dark:hover:text-zinc-200"} onClick={() => handlePopupShow()}>
+            <ChatPromptIcon />
+          </div>
           <div className="flex flex-col w-full py-2 flex-grow  md:pl-4 relative bg-slate-1100 shadow-blue-900/5 ring-2 ring-blue-900 rounded-[32px]">
             <textarea
               ref={textareaRef}
