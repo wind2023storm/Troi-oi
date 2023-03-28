@@ -51,15 +51,16 @@ export const ChatInput: FC<Props> = ({
     setContent(value);
   };
 
-  const handleCharacterChange = useCallback((promptContent: string) => {
+  const handleCharacterApply = useCallback((promptContent: string) => {
     if (promptContent?.length > maxLength) {
       setAlert(`Message limit is ${maxLength} characters`);
       return;
     } else {
       setAlert("");
     }
-    setContent(promptContent);
-  }, [maxLength])
+    onSend({ role: "user", content: promptContent });
+    setContent("");
+  }, [])
 
   const handleSend = () => {
     if (!content) {
@@ -132,7 +133,7 @@ export const ChatInput: FC<Props> = ({
           model={model}
           onSelect={onSelect}
           onNewConversation={onNewConversation}
-          onNewCharacter={handleCharacterChange}
+          onCharacterApply={handleCharacterApply}
         />
         <div className="stretch mx-2  flex flex-row gap-3  md:mx-4 last:my-6 lg:mx-auto lg:max-w-xl xl:max-w-3xl">
           <div className="flex flex-col w-full py-2 flex-grow  md:pl-4 relative bg-slate-1100 shadow-blue-900/5 ring-2 ring-blue-900 rounded-[32px]">
