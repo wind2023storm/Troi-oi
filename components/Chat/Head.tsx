@@ -10,10 +10,10 @@ interface Props {
   model: OpenAIModel;
   onSelect: (model: OpenAIModel) => void;
   onNewConversation: () => void;
-  onCharacterApply: (promptContent: string) => void;
+  onNewCharacter: (promptContent: string) => void;
 }
 
-const Head: FC<Props> = ({ model, onSelect, onNewConversation, onCharacterApply }) => {
+const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter }) => {
   const [modal, setModal] = useState("");
 
   const closeModal = () => {
@@ -38,7 +38,7 @@ const Head: FC<Props> = ({ model, onSelect, onNewConversation, onCharacterApply 
         )}
         {modal === "role" && (
           <Modal closeModal={closeModal} text="Role">
-            <Role  onApply={onCharacterApply} onClose={closeModal} />
+            <Role  onCharacterClick={onNewCharacter} onClose={closeModal} />
           </Modal>
         )}
         {modal === "model" && (
