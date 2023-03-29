@@ -1,49 +1,55 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState, useEffect, FC } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState, useRef, FC } from "react";
 import { supabase } from "@/utils/SupabaseClient";
+import { AnimatePresence, motion } from "framer-motion";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Props {
   onClose: () => void;
-  onCharacterClick: (character: any) => void;
+  onNewPromptChange: (prompt: any) => void;
 }
 
-const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
-  const [characters, setCharacters] = useState<any[] | null>([]);
-  const [initCharacters, setInitCharacters] = useState<any[] | null>([]);
+const Prompt: FC<Props> = ({ onClose, onNewPromptChange }) => {
+  const [selected, setSelected] = useState<String>("");
+  const [prompts, setPrompts] = useState<any[]>([]);
+  const [initPrompts, setInitPrompts] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(false)
-  const onSearchCharacter = (keyword: String) => {
-    let newCharacters: any[] = [];
-    if (initCharacters) {
-      for (const character of initCharacters) {
-        if (character?.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())) {
-          newCharacters.push(character);
-        }
-      }
-      setCharacters(newCharacters);
-    }
-  }
+
   useEffect(() => {
-    getCharacterList();
+    getPromptList();
   }, []);
 
-  const getCharacterList = async () => {
+  const onSearchPrompt = (keyword: String) => {
+    let newPrompts: any[] = [];
+    if (initPrompts) {
+      for (const prompt of initPrompts) {
+        if (prompt?.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())) {
+          newPrompts.push(prompt);
+        }
+      }
+      setPrompts(newPrompts);
+    }
+  }
+  const getPromptList = async () => {
     try {
       setLoading(true);
-      const { data: items, error, status } = await supabase.from('chatgpt_character').select();
+      const { data: items, error, status } = await supabase.from('chatgpt_prompt').select();
       if (error && status !== 406) {
         throw error;
       }
       
       if (items) {
-        setCharacters(items);
-        setInitCharacters(items);
+        setPrompts(items);
+        setInitPrompts(items);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
+  };
+  const handleSelect = (item: any) => {
+    onNewPromptChange(item?.prompt);
+    onClose();
   };
 
   const ref = useRef(null);
@@ -53,12 +59,14 @@ const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
       onClose();
     }
   };
-  // handle select role
-  const handleSelect = (item: any) => {
-    onCharacterClick(item?.prompt);
-    onClose();
-  };
-
+  // List of items
+  const items = [
+    "Fix Grammar Errors",
+    "Act as an English Translator and Improver",
+    "Act as an job interviewer",
+    "Act as a English Pronunciation Helper",
+    "Act as a Travel Guide",
+  ];
   // Animation variants for modal
   const overlayVariants = {
     initial: {
@@ -164,10 +172,10 @@ const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
               >
                 <div className="pt-0 pr-4 pb-0 pl-4 mt-0 mr-auto mb-0 ml-auto sm:flex sm:items-center sm:justify-between">
                   <div className="text-left">
-                    <p className="text-xl font-bold text-gray-900">Select a character</p>
+                    <p className="text-xl font-bold text-gray-900">Select a prompt</p>
                   </div>
                   <div className="mt-4 mr-0 mb-0 ml-0 sm:mt-0">
-                    <p className="sr-only">Search Character</p>
+                    <p className="sr-only">Search Prompt</p>
                     <div className="relative">
                       <div className="flex items-center pt-0 pr-0 pb-0 pl-3 absolute inset-y-0 left-0 pointer-events-none">
                         <p>
@@ -176,13 +184,13 @@ const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
                             21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         </p>
                       </div>
-                      <input onChange={(e) => {onSearchCharacter(e.target.value)}} placeholder="Search Characters " type="search" className="bg-white border block pt-2 pr-2 pl-10 w-full py-2
+                      <input onChange={(e) => {onSearchPrompt(e.target.value)}} placeholder="Search Prompts " type="search" className="bg-white border block pt-2 pr-2 pl-10 w-full py-2
                         pl-10 border border-gray-300 rounded-lg focus:ring-indigo-600 sm:text-sm"/>
                     </div>
                   </div>
                 </div>
                 <div className="shadow-xl px-4 pt-2 flow-root rounded-lg relative h-auto">
-                  {!loading ? characters?.map((character, index) => (
+                  {!loading ? prompts?.map((prompt, index) => (
                     <div key={index} className="mt-6">
                       <div className="sm:flex sm:items-center sm:justify-between sm:space-x-5">
                         <div className="flex items-center flex-1 min-w-0">
@@ -190,13 +198,13 @@ const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
                             src="/chat-role.jfif" className="flex-shrink-0 object-cover rounded-full btn- w-10 h-10"/>
                           <div className="mt-0 mr-0 mb-0 ml-4 flex-1 min-w-0">
                             <p className="text-left text-lg font-bold text-gray-800 truncate">
-                              {character?.name}
+                              {prompt?.name}
                             </p>
                           </div>
                         </div>
                         <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
                           <button
-                            onClick={() => handleSelect(character)}
+                            onClick={() => handleSelect(prompt)}
                             className="bg-gray-800 px-6 py-2 text-md text-gray-100 transition-all duration-200 hover:bg-gray-700 rounded-lg">
                             Apply
                           </button>
@@ -218,4 +226,4 @@ const Role: FC<Props> = ({ onClose, onCharacterClick }) => {
   );
 }
 
-export default Role;
+export default Prompt;

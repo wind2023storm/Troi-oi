@@ -102,8 +102,18 @@ export const ChatInput: FC<Props> = ({
     } else {
       setAlert("");
     }
+    onSend({ role: "user", content: promptContent });
+  }, [maxLength]);
+
+  const handlePromptChange = useCallback((promptContent: string) => {
+    if (promptContent?.length > maxLength) {
+      setAlert(`Message limit is ${maxLength} characters`);
+      return;
+    } else {
+      setAlert("");
+    }
     setContent(promptContent);
-  }, [maxLength])
+  }, [maxLength]);
 
   const handleSend = () => {
     if (!content) {
@@ -180,6 +190,7 @@ export const ChatInput: FC<Props> = ({
           onSelect={onSelect}
           onNewConversation={onNewConversation}
           onNewCharacter={handleCharacterChange}
+          onNewPromptChange={handlePromptChange}
         />
         {popupShow && <PromptPopup
           outputData={outputData}
