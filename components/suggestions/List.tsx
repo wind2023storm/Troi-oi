@@ -47,7 +47,7 @@ const List: FC<Props> = ({ onSend }) => {
       key="suggestions"
       className="max-w-lg mx-auto mt-10 "
     >
-      <h4 className="mt-3 text-sm font-semibold text-white/80 md:text-left">
+      <h4 className="mt-3 text-sm font-semibold dark:text-white/80 text-black/80 md:text-left">
         Or try asking one of these questions:
       </h4>
 

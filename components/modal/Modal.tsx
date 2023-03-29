@@ -84,7 +84,7 @@ const Modal: FC<Props> = ({ closeModal, children, text }) => {
             animate="visible"
             exit="hidden"
             ref={ref}
-            className="inline-block w-full align-bottom bg-slate-800 rounded-lg px-4 pt-5 pb-4 text-left shadow-xl sm:my-8 sm:align-middle sm:p-6 max-w-sm opacity-100 translate-y-0 sm:scale-100"
+            className="inline-block w-full align-bottom bg-slate-800 rounded-lg px-4 pt-5 pb-4 text-left shadow-xl sm:my-8 sm:align-middle sm:p-6 max-w-xl opacity-100 translate-y-0 sm:scale-100"
           >
             {/* headline */}
             <div className="flex justify-between items-center pb-4">

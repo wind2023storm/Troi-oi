@@ -15,7 +15,7 @@ const Item: FC<Props> = ({ onSend, title }) => {
     <li>
       <button
         onClick={() => handleSearchInput(title)}
-        className="px-4 py-1 sm:py-2 transition-colors rounded-full backdrop-blur-xl [@supports(backdrop-filter:blur(0))]:bg-slate-1100/80 hover:bg-blue-700 [@supports(backdrop-filter:blur(0))]:hover:bg-blue-700/80 bg-slate-1100 text-slate-200"
+        className="px-4 py-1 sm:py-2 transition-colors rounded-full backdrop-blur-xl [@supports(backdrop-filter:blur(0))]:dark:bg-slate-1100/80 [@supports(backdrop-filter:blur(0))]:bg-slate-600/80 hover:bg-blue-700 [@supports(backdrop-filter:blur(0))]:hover:bg-blue-600/80 bg-slate-1100 text-slate-200"
       >
         {title}
       </button>

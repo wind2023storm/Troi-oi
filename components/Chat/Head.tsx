@@ -36,11 +36,7 @@ const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter })
             <Prompt />
           </Modal>
         )}
-        {modal === "role" && (
-          <Modal closeModal={closeModal} text="Role">
-            <Role  onCharacterClick={onNewCharacter} onClose={closeModal} />
-          </Modal>
-        )}
+        {modal === "role" && <Role  onCharacterClick={onNewCharacter} onClose={closeModal} />}
         {modal === "model" && (
           <Modal closeModal={closeModal} text="Model">
             <Model onSelect={onSelect} model={model} />
@@ -49,25 +45,25 @@ const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter })
       </AnimatePresence>
 
       <div className="z-10 h-auto mx-auto">
-        <ul className="xs:w-min whitespace-nowrap text-center mx-auto px-1 xs:px-3 text-sm font-normal sm:font-medium rounded-full shadow-xl ring-1 backdrop-blur bg-slate-800/90 text-zinc-200 ring-slate-100/10">
+        <ul className="xs:w-min whitespace-nowrap text-center mx-auto px-1 xs:px-3 text-sm font-normal sm:font-medium rounded-full shadow-xl ring-1 backdrop-blur dark:bg-slate-800/90 bg-slate-200 dark:text-zinc-200 text-zinc-900 dark:ring-slate-100/10 ring-slate-600/50">
           <li className="inline-block" onClick={() => handleSetModal("model")}>
-            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition text-emerald-400">
+            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition dark:text-emerald-400 text-emerald-900">
               Model: {model}
               <span className="absolute h-px inset-x-1 -bottom-px bg-gradient-to-r from-emerald-500/0 via-emerald-500/40 to-emerald-500/0"></span>
             </button>
           </li>
           <li className="inline-block" onClick={() => handleSetModal("role")}>
-            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition hover:text-emerald-500">
+            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition dark:hover:text-emerald-500 hover:text-emerald-900">
               Character
             </button>
           </li>
           <li className="inline-block" onClick={() => handleSetModal("prompt")}>
-            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition hover:text-emerald-500 ">
+            <button className="relative block text-sm px-1 xs:px-3 py-2 whitespace-nowrap transition dark:hover:text-emerald-500 hover:text-emerald-900">
               Prompt
             </button>
           </li>
           <li className="inline-block" onClick={onNewConversation}>
-            <button className="relative block text-sm px-1 sm:px-3 py-2 whitespace-nowrap transition hover:text-emerald-500 ">
+            <button className="relative block text-sm px-1 sm:px-3 py-2 whitespace-nowrap transition dark:hover:text-emerald-500 hover:text-emerald-900">
               New Chat
             </button>
           </li>
