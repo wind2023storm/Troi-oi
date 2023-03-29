@@ -11,7 +11,7 @@ interface Props {
 export const ChatMessage: FC<Props> = ({ message }) => {
   return (
     <div
-      className={`flex justify-center py-[20px] sm:py-[30px] text-white no-scrollbar ${
+      className={`flex justify-center py-[20px] sm:py-[30px] dark:text-white text-black no-scrollbar ${
         message.role === "assistant" ? " border-neutral-300" : ""
       }`}
       style={{ overflowWrap: "anywhere" }}
@@ -21,7 +21,7 @@ export const ChatMessage: FC<Props> = ({ message }) => {
           {message.role === "assistant" ? "AI:" : "You:"}
         </div>
 
-        <div className="prose prose-invert min-w-full pr-12 mt-[-2px]">
+        <div className="dark:text-white text-black prose prose-invert min-w-full pr-12 mt-[-2px]">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -35,7 +35,7 @@ export const ChatMessage: FC<Props> = ({ message }) => {
                     {...props}
                   />
                 ) : (
-                  <code className={className} {...props}>
+                  <code className="dark:text-white text-black" {...props}>
                     {children}
                   </code>
                 );

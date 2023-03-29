@@ -1,24 +1,28 @@
 import { Message } from "@/types";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Item from "./Item";
+import { supabase } from "@/utils/SupabaseClient";
 
 interface Props {
   onSend: (message: Message) => void;
 }
 
 const List: FC<Props> = ({ onSend }) => {
-  // some dummy data
-  const items = [
-    "How do I get started?",
-    "Hoc can I render my application?",
-    "How does routing work?",
-    "How do I manage state?",
-    "How do I add authentication?",
-    "How do I create an API route?",
-    "How do I use SolidStart with TypeScript?",
-  ];
-
+  const [items, setItems] = useState<any[]>([]);
+  useEffect(() => {
+    async function fetchPopupData() {
+      let newItems: any[] = []
+      const { data: chatSuggestions } = await supabase.from('chatgpt_suggestion').select();
+      if (chatSuggestions?.length) {
+        for (const suggestion of chatSuggestions) {
+          newItems.push(suggestion?.prompt);
+        }
+      }
+      setItems(newItems);
+    }
+    fetchPopupData()
+  }, []);
   // framer motion variants
   const variants = {
     initial: {

@@ -23,7 +23,7 @@ export const ChatLoader: FC<Props> = () => {
 
   return (
     <div
-      className={`flex justify-center py-[30px] whitespace-pre-wrap`}
+      className={`flex justify-center py-[30px] whitespace-pre-wrap dark:text-white text-black`}
       style={{ overflowWrap: "anywhere" }}
     >
       <div className="w-full px-4 flex">

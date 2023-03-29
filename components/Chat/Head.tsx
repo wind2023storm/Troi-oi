@@ -11,9 +11,10 @@ interface Props {
   onSelect: (model: OpenAIModel) => void;
   onNewConversation: () => void;
   onNewCharacter: (promptContent: string) => void;
+  onNewPromptChange: (promptContent: string) => void;
 }
 
-const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter }) => {
+const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter, onNewPromptChange }) => {
   const [modal, setModal] = useState("");
 
   const closeModal = () => {
@@ -31,12 +32,8 @@ const Head: FC<Props> = ({ model, onSelect, onNewConversation, onNewCharacter })
   return (
     <>
       <AnimatePresence>
-        {modal === "prompt" && (
-          <Modal closeModal={closeModal} text="Prompt">
-            <Prompt />
-          </Modal>
-        )}
-        {modal === "role" && <Role  onCharacterClick={onNewCharacter} onClose={closeModal} />}
+        {modal === "prompt" && (<Prompt onClose={closeModal} onNewPromptChange={onNewPromptChange} />)}
+        {modal === "role" && <Role onCharacterClick={onNewCharacter} onClose={closeModal} />}
         {modal === "model" && (
           <Modal closeModal={closeModal} text="Model">
             <Model onSelect={onSelect} model={model} />

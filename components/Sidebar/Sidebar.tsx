@@ -3,7 +3,7 @@ import { IconPlus, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 import { FC } from "react";
 import logo from "../../assets/images/logo.png";
-import typemark from "../../assets/images/typemark.png";
+import typemark from "../../assets/images/typemark.svg";
 import { Conversations } from "./Conversations";
 import SidebarBottom from "./SidebarBottom";
 
@@ -33,10 +33,10 @@ export const Sidebar: FC<Props> = ({
     <>
       {/* Logo */}
       <div className="flex justify-center items-center gap-2 lg:pt-4 pb-2">
-        <a href="https://troioi.io/chat" className="cursor-pointer">
+        <a href="https://troioi.io" className="cursor-pointer">
           <Image src={logo} className="w-8" alt="logo" />
         </a>
-        <a href="https://troioi.io/chat" className="cursor-pointer">
+        <a href="https://troioi.io" className="cursor-pointer">
           <Image src={typemark} className="h-5 w-auto" alt="logo" />
         </a>
       </div>
