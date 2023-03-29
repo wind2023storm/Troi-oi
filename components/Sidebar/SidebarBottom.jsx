@@ -9,22 +9,22 @@ export default function SidebarBottom() {
   return (
     <div className="flex">
       <ul className="flex gap-2 justify-center items-center w-full py-6 text-zinc-400">
-        <li className="bg-slate-800 p-2.5 rounded-full">
+        <li className="dark:bg-slate-800 bg-slate-600 p-2.5 rounded-full">
           <Link href="" target="_blank">
             <Image src={instagram} alt="instagram" className="w-5" />
           </Link>
         </li>
-        <li className="bg-slate-800 p-2.5 rounded-full">
+        <li className="dark:bg-slate-800 bg-slate-600 p-2.5 rounded-full">
           <Link href="" target="_blank">
             <Image src={twitter} alt="twitter" className="w-5" />
           </Link>
         </li>
-        <li className="bg-slate-800 p-2.5 rounded-full">
+        <li className="dark:bg-slate-800 bg-slate-600 p-2.5 rounded-full">
           <Link href="" target="_blank">
             <Image src={facebook} alt="facebook" className="w-5" />
           </Link>
         </li>
-        <li className="bg-slate-800 p-2.5 rounded-full">
+        <li className="dark:bg-slate-800 bg-slate-600 p-2.5 rounded-full">
           <Link href="" target="_blank">
             <Image src={linkedin} alt="linkedin" className="w-5" />
           </Link>

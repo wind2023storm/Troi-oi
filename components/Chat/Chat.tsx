@@ -38,14 +38,14 @@ export const Chat: FC<Props> = ({
   }, [messages]);
 
   return (
-    <div className="h-full w-full flex flex-col bg-slate-900 px-6">
+    <div className="h-full w-full flex flex-col dark:bg-slate-900 bg-slate-300 px-6">
       <div className="flex-1 overflow-auto no-scrollbar">
         {messages.length === 0 ? (
           <>
             <div className="sm:pb-20 pt-20">
-              <h1 className="max-w-xl mx-auto mt-2 mb-8 sm:mt-10 sm:mb-10 text-5xl font-semibold tracking-tighter text-center md:leading-tight md:text-6xl font-display text-slate-200">
+              <h1 className="max-w-xl mx-auto mt-2 mb-8 sm:mt-10 sm:mb-10 text-5xl font-semibold tracking-tighter text-center md:leading-tight md:text-6xl font-display dark:text-slate-200 text-slate-700">
                 ChatGPT for <br />
-                <em className="not-italic text-transparent bg-clip-text bg-gradient-to-br from-rose-100 via-emerald-100 to-sky-200">
+                <em className="not-italic text-transparent bg-clip-text bg-gradient-to-br dark:from-rose-100 dark:via-emerald-100 dark:to-sky-200 from-rose-700 via-emerald-600 to-sky-600">
                   Everybody
                 </em>
               </h1>

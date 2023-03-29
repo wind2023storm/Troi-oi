@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import Animation from "../components/Animation";
-
+import ThemeToggle from "@/components/ThemeToggle";
 export default function Home() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
 
@@ -334,7 +334,7 @@ export default function Home() {
       </Head>
 
       {selectedConversation && (
-        <div className={`flex h-screen text-white relative  ${lightMode}`}>
+        <div className="flex h-screen text-white relative">
           <AnimatePresence>
             {showSidebar && (
               <motion.div
@@ -348,7 +348,7 @@ export default function Home() {
           </AnimatePresence>
           <div
             ref={sidebarRef}
-            className={`h-full lg:z-0 z-20 lg:pt-2 pt-5 flex flex-col bg-slate-1100 min-w-[300px] max-w-[300px] lg:static absolute left-0 inset-y-0 transition-transform duration-200 ${
+            className={`h-full lg:z-0 z-20 lg:pt-2 pt-5 flex flex-col dark:bg-slate-1100 bg-slate-500 min-w-[300px] max-w-[300px] lg:static absolute left-0 inset-y-0 transition-transform duration-200 ${
               showSidebar
                 ? "translate-x-0"
                 : "lg:translate-x-0 -translate-x-full"
@@ -376,6 +376,7 @@ export default function Home() {
 
           <div className="w-full h-full relative">
             <Animation />
+            <ThemeToggle />
             <Chat
               onNewConversation={handleNewConversation}
               disabled={disabled}

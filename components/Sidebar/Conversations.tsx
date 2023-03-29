@@ -55,10 +55,10 @@ export const Conversations: FC<Props> = ({
       {conversations.map((conversation, index) => (
         <button
           key={index}
-          className={`flex items-center justify-start min-h-[40px] px-2 text-sm rounded-lg hover:bg-slate-800 cursor-pointer ${
+          className={`flex items-center justify-start min-h-[40px] px-2 text-sm rounded-lg dark:hover:bg-slate-800 hover:bg-slate-700 cursor-pointer ${
             loading ? "disabled:cursor-not-allowed" : ""
           } ${
-            selectedConversation.id === conversation.id ? "bg-slate-800" : ""
+            selectedConversation.id === conversation.id ? "dark:bg-slate-800 bg-slate-700" : ""
           }`}
           onClick={() => onSelectConversation(conversation)}
           disabled={loading}

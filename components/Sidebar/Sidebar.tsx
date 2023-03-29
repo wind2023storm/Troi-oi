@@ -33,13 +33,17 @@ export const Sidebar: FC<Props> = ({
     <>
       {/* Logo */}
       <div className="flex justify-center items-center gap-2 lg:pt-4 pb-2">
-        <Image src={logo} className="w-8" alt="logo" />
-        <Image src={typemark} className="h-5 w-auto" alt="logo" />
+        <a href="https://troioi.io/chat" className="cursor-pointer">
+          <Image src={logo} className="w-8" alt="logo" />
+        </a>
+        <a href="https://troioi.io/chat" className="cursor-pointer">
+          <Image src={typemark} className="h-5 w-auto" alt="logo" />
+        </a>
       </div>
 
       <div className="flex items-center h-[60px] pl-2 lg:pr-2">
         <button
-          className="flex items-center w-full h-[40px] rounded-lg bg-slate-1100 border border-neutral-300 text-sm hover:bg-slate-800"
+          className="flex items-center w-full h-[40px] rounded-lg dark:bg-slate-1100 bg-slate-500 border border-neutral-300 text-sm dark:hover:bg-slate-800 hover:bg-slate-600"
           onClick={onNewConversation}
         >
           <IconPlus className="ml-4 mr-3" size={16} />
