@@ -48,7 +48,7 @@ export default function Results({
           ease: "easeInOut",
         },
       }}
-      className="max-w-5xl overflow-hidden transform mx-auto mt-16 lg:mt-12 rounded-xl backdrop-blur-xl [@supports(backdrop-filter:blur(0))]:dark:bg-slate-1100/80 [@supports(backdrop-filter:blur(0))]:bg-slate-500/80 relative"
+      className="max-w-5xl overflow-hidden transform mx-auto mt-16 lg:mt-12 rounded-xl backdrop-blur-xl [@supports(backdrop-filter:blur(0))]:dark:bg-slate-1100/80 [@supports(backdrop-filter:blur(0))]:bg-white/80 relative"
     >
       {children}
       <Footer

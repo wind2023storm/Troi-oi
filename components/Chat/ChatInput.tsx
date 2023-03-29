@@ -210,7 +210,7 @@ export const ChatInput: FC<Props> = ({
           <div className={popupShow ? "cursor-pointer shrink-0 transition-colors p-1.5 rounded-lg relative bg-gray-500 text-white text-gray-500 dark:text-zinc-900" : "cursor-pointer shrink-0 transition-colors  p-1.5 rounded-lg relative  text-gray-500 dark:text-zinc-500 hover:text-gray-900 dark:text-white dark:hover:text-zinc-200"} onClick={() => handlePopupShow()}>
             <ChatPromptIcon />
           </div>
-          <div className="flex flex-col w-full py-2 flex-grow  md:pl-4 relative dark:bg-slate-1100 bg-slate-400 shadow-blue-900/5 ring-2 dark:ring-blue-900 ring-blue-500 rounded-[32px]">
+          <div className="flex flex-col w-full py-2 flex-grow  md:pl-4 relative dark:bg-slate-1100 bg-white shadow-blue-900/5 ring-2 dark:ring-blue-900 ring-blue-500 rounded-[32px]">
             <textarea
               ref={textareaRef}
               className="dark:text-white text-black m-0 w-full resize-none outline-none border-0 bg-transparent p-0 pr-7 focus:ring-0 focus-visible:ring-0  pl-2 md:pl-0 no-scrollbar"
