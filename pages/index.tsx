@@ -329,8 +329,7 @@ export default function Home() {
           name="description"
           content="An advanced chatbot for OpenAI's chat model using Next.js, TypeScript, and Tailwind CSS."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="https://chat.troioi.io/">
         <meta property="og:image" content=https://troioi.io/wp-content/uploads/2023/03/troi-oi-og-2.png>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
