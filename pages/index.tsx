@@ -324,7 +324,7 @@ export default function Home() {
   return (
     <>  
       <Head>
-        <meta property="og:title" content=TroiOi x ChatGPT: Conversational AI with a clean UI>
+        <title>TroiOi x ChatGPT: Conversational AI with a clean UI</title> 
         <meta property="og:site_name" content=TroiOi Chat - Free ChatGPT with top Prompts>
         <meta property="og:url" content=”https://chat.troioi.io/”>
         <meta property="og:description" content=TroiOi chatbot is designed for a wide range of people. As advances, TroiOi chat will play an important role in the future. Take a look of our amazing Chat app>
