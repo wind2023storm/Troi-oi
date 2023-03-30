@@ -322,17 +322,7 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Chatbot</title>
-        <meta
-          name="description"
-          content="An advanced chatbot starter kit for OpenAI's chat model using Next.js, TypeScript, and Tailwind CSS."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/logo.png" />
-      </Head>
-      
+    <>  
       <Head>
         <meta property="og:title" content=TroiOi x ChatGPT: Conversational AI with a clean UI>
         <meta property="og:site_name" content=TroiOi Chat - Free ChatGPT with top Prompts>
