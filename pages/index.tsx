@@ -324,16 +324,19 @@ export default function Home() {
   return (
     <>  
       <Head>
-        <title>TroiOi x ChatGPT: Conversational AI with a clean UI</title> 
-        <meta property="og:site_name" content=TroiOi Chat - Free ChatGPT with top Prompts>
-        <meta property="og:url" content=”https://chat.troioi.io/”>
-        <meta property="og:description" content=TroiOi chatbot is designed for a wide range of people. As advances, TroiOi chat will play an important role in the future. Take a look of our amazing Chat app>
+        <title>TroiOi Chat: Conversational AI with a clean UI</title>
+        <meta
+          name="description"
+          content="An advanced chatbot for OpenAI's chat model using Next.js, TypeScript, and Tailwind CSS."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:type" content="website">
         <meta property="og:image" content=https://troioi.io/wp-content/uploads/2023/03/troi-oi-og-2.png>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-
+      
+      
       {selectedConversation && (
         <div className="flex h-screen text-white relative">
           <AnimatePresence>
