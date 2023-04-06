@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import Animation from "../components/Animation";
-import ThemeToggle from "@/components/ThemeToggle";
 export default function Home() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
 
@@ -322,7 +321,7 @@ export default function Home() {
   };
 
   return (
-    <>  
+    <>
       <Head>
         <title>TroiOi Chat: Conversational AI with a clean UI</title>
         <meta
@@ -332,8 +331,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      
-      
+
       {selectedConversation && (
         <div className="flex h-screen text-white relative">
           <AnimatePresence>
@@ -377,7 +375,7 @@ export default function Home() {
 
           <div className="w-full h-full relative">
             <Animation />
-            <ThemeToggle />
+
             <Chat
               onNewConversation={handleNewConversation}
               disabled={disabled}

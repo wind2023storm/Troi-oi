@@ -4,8 +4,8 @@ import Image from "next/image";
 import { FC } from "react";
 import logo from "../../assets/images/logo.png";
 import typemark from "../../assets/images/typemark.svg";
+import ThemeToggle from "../ThemeToggle";
 import { Conversations } from "./Conversations";
-import SidebarBottom from "./SidebarBottom";
 
 interface Props {
   loading: boolean;
@@ -68,7 +68,7 @@ export const Sidebar: FC<Props> = ({
         />
       </div>
 
-      <SidebarBottom />
+      <ThemeToggle />
     </>
   );
 };
